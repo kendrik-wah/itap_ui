@@ -3,16 +3,23 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default function SimpleMenu() {
+export default function SimpleMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = event => {
     setAnchorEl(null);
+    props.onSelect(event.target.value);
   };
+
+  const loadItems = (props) => {
+    var lst = props.map(prop => {return <MenuItem onClick={handleClose} value={props.indexOf(prop)}>{prop}</MenuItem>})
+    return lst
+  }
 
   return (
     <div>
@@ -24,11 +31,8 @@ export default function SimpleMenu() {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        onClose={handleClose}>
+        {loadItems(props.waypoints)}
       </Menu>
     </div>
   );

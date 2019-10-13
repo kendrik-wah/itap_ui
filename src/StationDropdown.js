@@ -5,6 +5,14 @@ import axios from 'axios';
 var instance;
 var arbiter;
 var pts;
+var lst = ["Profile", "My account", "Logout"]
+
+const styles = {
+  resize: {
+    fontSize: 5
+  }
+}
+
 
 export class StationDropdown extends React.Component {
 
@@ -20,6 +28,7 @@ export class StationDropdown extends React.Component {
 
     this.getWaypoints = this.getWaypoints.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
    }
 
   getWaypoints() {
@@ -39,6 +48,11 @@ export class StationDropdown extends React.Component {
   handleChange(event) {
     this.setState({selectedPoint: event.value});
     arbiter.onChange(this.state.selectedPoint);
+  }
+
+  handleSelect(point) {
+    this.setState({selectedPoint: point});
+    this.props.onChange(point);
   }
 
   UNSAFE_componentWillMount() {
@@ -66,16 +80,17 @@ export class StationDropdown extends React.Component {
 
     this.getWaypoints();
 
-    if (this.state.waypoints !== undefined) {
-      return (
-        SimpleMenu()
-      )
-    }
-    else {
-      return (
-        <p>HaaaaaaaaRAMMMMBEEEEEEEE</p>
-      )
-    }
+    return (
+      <SimpleMenu waypoints={this.state.waypoints}
+                  onSelect={this.handleSelect}
+                  className="StationDropdown_SimpleMenu"
+                  inputProps={{
+                    styles: {
+                      input: styles.resize
+                    }
+                  }}/>
+    )
+
   }
 }
 

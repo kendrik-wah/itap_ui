@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import elem_test from './elem_test.mp4';
+import './User.css';
 
 export class User extends React.Component {
 
@@ -69,25 +71,51 @@ export class User extends React.Component {
     this.state.baseURL = this.props.baseURL;
 
     return (
+      <div className="login_page">
 
-      <div className="login_form">
-        <TextField className="user_name"
-                   label="Username"
-                   type="username"
-                   value={this.state.value}
-                   onChange={this.handleUsername}/>
+        <video autoPlay loop muted className="login_video">
+             <source src={elem_test} type="video/mp4" />
+        </video>
 
-        <TextField className="password"
-                   label="Password"
-                   type="password"
-                   value={this.state.value}
-                   onChange={this.handlePassword}/>
+        <div className="login_form">
 
-        <Button className="submit"
-                onClick={this.AuthenticateUser}>
-                Login
-        </Button>
+          <div className="login_form_fillup">
+            <h3 className="login_form_desc"> Log in to use our SESTO Element!
+            </h3>
+
+            <div className="login_form_username">
+              <TextField id="outlined-user_name"
+                         className="user_name"
+                         label="Username"
+                         type="username"
+                         value={this.state.value}
+                         margin="normal"
+                         variant="filled"
+                         onChange={this.handleUsername}/>
+           </div>
+
+           <div className="login_form_password">
+            <TextField id="outlined-password"
+                       className="password"
+                       label="Password"
+                       type="password"
+                       value={this.state.value}
+                       margin="normal"
+                       variant="filled"
+                       onChange={this.handlePassword}/>
+           </div>
+
+           <div className="login_form_submit_button">
+            <Button className="submit"
+                    color="secondary"
+                    variant="contained"
+                    onClick={this.AuthenticateUser}>
+                    Log in
+            </Button>
+         </div>
+        </div>
       </div>
+    </div>
     )
   }
 }

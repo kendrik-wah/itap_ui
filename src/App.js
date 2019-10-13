@@ -1,6 +1,5 @@
 import React from 'react';
 import User from './User.js';
-
 import CallApp from './CallApp.js';
 import baseURL from './baseURL.json'
 import logo from './logo.svg';
@@ -28,15 +27,17 @@ export class App extends React.Component {
 
     if (this.state.access_token === '') {
       return (
-        <User className="UserLogin"
-              baseURL={this.state.baseURL}
-              onChange={this.setToken}/>
+        <div className="App_LoginScreen">
+          <User className="App_UserLogin"
+                baseURL={this.state.baseURL}
+                onChange={this.setToken}/>
+        </div>
       )
     }
     else {
       return (
-        <div className="AuthorizationPass">
-          <CallApp className="CallApp"
+        <div className="App_AuthorizationPass">
+          <CallApp className="App_CallApp"
                    access_token={this.state.access_token}
                    baseURL={this.state.baseURL}/>
 
@@ -45,30 +46,5 @@ export class App extends React.Component {
     }
   }
 }
-
-/*
-function App() {
-
-  const user = AuthenticateUser()
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Button variant="contained" color="primary">
-      Hello World
-        </Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-*/
 
 export default App;
